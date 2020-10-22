@@ -243,6 +243,10 @@ class TeamTotal:
         return self.totals.attempted_field_goals
 
     @property
+    def field_goals_percentage(self):
+        return self.totals.field_goals_percentage
+
+    @property
     def made_three_point_field_goals(self):
         return self.totals.made_three_point_field_goals
 
@@ -251,12 +255,20 @@ class TeamTotal:
         return self.totals.attempted_three_point_field_goals
 
     @property
+    def three_point_field_goals_percentage(self):
+        return self.totals.three_point_field_goals_percentage
+
+    @property
     def made_free_throws(self):
         return self.totals.made_free_throws
 
     @property
     def attempted_free_throws(self):
         return self.totals.attempted_free_throws
+
+    @property
+    def free_throws_percentage(self):
+        return self.totals.free_throws_percentage
 
     @property
     def offensive_rebounds(self):
@@ -289,6 +301,68 @@ class TeamTotal:
     @property
     def points(self):
         return self.totals.points
+
+
+class AdvancedTeamTotal:
+    def __init__(self, team_abbreviation, totals):
+        self.team_abbreviation = team_abbreviation
+        self.totals = totals
+
+    @property
+    def playing_time(self):
+        return self.totals.playing_time
+
+    @property
+    def true_shooting_percentage(self):
+        return self.totals.true_shooting_percentage
+
+    @property
+    def effective_field_goal_percentage(self):
+        return self.totals.effective_field_goal_percentage
+
+    @property
+    def attempted_three_point_field_goals_per_field_goal_percent(self):
+        return self.totals.attempted_three_point_field_goals_per_field_goal_percent
+
+    @property
+    def attempted_free_throws_per_field_goal_percent(self):
+        return self.totals.attempted_free_throws_per_field_goal_percent
+
+    @property
+    def offensive_rebound_percentage(self):
+        return self.totals.offensive_rebound_percentage
+
+    @property
+    def defensive_rebound_percentage(self):
+        return self.totals.defensive_rebound_percentage
+
+    @property
+    def total_rebound_percentage(self):
+        return self.totals.total_rebound_percentage
+
+    @property
+    def assist_percentage(self):
+        return self.totals.assist_percentage
+
+    @property
+    def steal_percentage(self):
+        return self.totals.steal_percentage
+
+    @property
+    def block_percentage(self):
+        return self.totals.block_percentage
+
+    @property
+    def turnover_percentage(self):
+        return self.totals.turnover_percentage
+
+    @property
+    def usage_percentage(self):
+        return self.totals.usage_percentage
+
+    @property
+    def defensive_rating(self):
+        return self.totals.defensive_rating
 
 
 class PlayerData:

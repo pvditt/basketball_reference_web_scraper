@@ -1,7 +1,7 @@
 import requests
 from lxml import html
 
-from basketball_reference_web_scraper.data import TEAM_TO_TEAM_ABBREVIATION, TeamTotal, PlayerData
+from basketball_reference_web_scraper.data import TEAM_TO_TEAM_ABBREVIATION, AdvancedTeamTotal, TeamTotal, PlayerData
 from basketball_reference_web_scraper.errors import InvalidDate, InvalidPlayerAndSeason
 from basketball_reference_web_scraper.html import DailyLeadersPage, PlayerSeasonBoxScoresPage, PlayerSeasonTotalTable, \
     PlayerAdvancedSeasonTotalsTable, PlayByPlayPage, SchedulePage, BoxScoresPage, DailyBoxScoresPage, SearchPage, \
@@ -163,20 +163,27 @@ class HTTPService:
 
     def team_box_score(self, game_url_path):
         url = "{BASE_URL}/{game_url_path}".format(BASE_URL=HTTPService.BASE_URL, game_url_path=game_url_path)
-
         response = requests.get(url=url)
 
         response.raise_for_status()
 
         page = BoxScoresPage(html.fromstring(response.content))
         combined_team_totals = [
-            TeamTotal(team_abbreviation=table.team_abbreviation, totals=table.team_totals)
+            TeamTotal(team_abbreviation=table.team_abbreviation, totals=table.basic_team_totals)
             for table in page.basic_statistics_tables
+        ]
+
+        #   TODO: ensure pairing
+        advanced_team_totals = [
+            AdvancedTeamTotal(team_abbreviation=table.team_abbreviation, totals=table.advanced_team_totals)
+            for table in page.advanced_statistics_tables
         ]
 
         return self.parser.parse_team_totals(
             first_team_totals=combined_team_totals[0],
+            first_team_advanced_totals=advanced_team_totals[0],
             second_team_totals=combined_team_totals[1],
+            second_team_advanced_totals=advanced_team_totals[1],
         )
 
     def team_box_scores(self, day, month, year):

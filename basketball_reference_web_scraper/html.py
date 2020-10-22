@@ -39,6 +39,15 @@ class BasicBoxScoreRow:
         return ''
 
     @property
+    def field_goals_percentage(self):
+        cells = self.html.xpath('td[@data-stat="fg_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
     def made_three_point_field_goals(self):
         cells = self.html.xpath('td[@data-stat="fg3"]')
 
@@ -57,6 +66,15 @@ class BasicBoxScoreRow:
         return ''
 
     @property
+    def three_point_field_goals_percentage(self):
+        cells = self.html.xpath('td[@data-stat="fg3_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
     def made_free_throws(self):
         cells = self.html.xpath('td[@data-stat="ft"]')
 
@@ -68,6 +86,15 @@ class BasicBoxScoreRow:
     @property
     def attempted_free_throws(self):
         cells = self.html.xpath('td[@data-stat="fta"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def free_throws_percentage(self):
+        cells = self.html.xpath('td[@data-stat="ft_pct"]')
 
         if len(cells) > 0:
             return cells[0].text_content()
@@ -140,6 +167,137 @@ class BasicBoxScoreRow:
     @property
     def points(self):
         cells = self.html.xpath('td[@data-stat="pts"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+
+class AdvancedBoxScoreRow:
+    def __init__(self, html):
+        self.html = html
+
+    @property
+    def playing_time(self):
+        cells = self.html.xpath('td[@data-stat="mp"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def true_shooting_percentage(self):
+        cells = self.html.xpath('td[@data-stat="ts_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def effective_field_goal_percentage(self):
+        cells = self.html.xpath('td[@data-stat="efg_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def attempted_three_point_field_goals_per_field_goal_percent(self):
+        cells = self.html.xpath('td[@data-stat="fg3a_per_fga_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def attempted_free_throws_per_field_goal_percent(self):
+        cells = self.html.xpath('td[@data-stat="fta_per_fga_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def offensive_rebound_percentage(self):
+        cells = self.html.xpath('td[@data-stat="orb_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def defensive_rebound_percentage(self):
+        cells = self.html.xpath('td[@data-stat="drb_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def total_rebound_percentage(self):
+        cells = self.html.xpath('td[@data-stat="trb_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def assist_percentage(self):
+        cells = self.html.xpath('td[@data-stat="ast_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def steal_percentage(self):
+        cells = self.html.xpath('td[@data-stat="stl_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def block_percentage(self):
+        cells = self.html.xpath('td[@data-stat="blk_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def turnover_percentage(self):
+        cells = self.html.xpath('td[@data-stat="tov_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def usage_percentage(self):
+        cells = self.html.xpath('td[@data-stat="usg_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def defensive_rating(self):
+        cells = self.html.xpath('td[@data-stat="def_rtg"]')
 
         if len(cells) > 0:
             return cells[0].text_content()
@@ -601,6 +759,14 @@ class BoxScoresPage:
             if table.has_basic_statistics is True
         ]
 
+    @property
+    def advanced_statistics_tables(self):
+        return [
+            table
+            for table in self.statistics_tables
+            if table.has_advanced_statistics is True
+        ]
+
 
 class StatisticsTable:
     def __init__(self, html):
@@ -611,17 +777,30 @@ class StatisticsTable:
         return 'game-basic' in self.html.attrib["id"]
 
     @property
+    def has_advanced_statistics(self):
+        return 'game-advanced' in self.html.attrib["id"]
+
+    @property
     def team_abbreviation(self):
         # Example id value is box-BOS-game-basic or box-BOS-game-advanced
         match = re.match('^box-(.+)-game', self.html.attrib["id"])
         return match.group(1)
 
     @property
-    def team_totals(self):
+    def basic_team_totals(self):
         # Team totals are stored as table footers
         footers = self.html.xpath('tfoot/tr')
         if len(footers) > 0:
             return BasicBoxScoreRow(html=footers[0])
+
+        return None
+
+    @property
+    def advanced_team_totals(self):
+        # Team totals are stored as table footers
+        footers = self.html.xpath('tfoot/tr')
+        if len(footers) > 0:
+            return AdvancedBoxScoreRow(html=footers[0])
 
         return None
 
