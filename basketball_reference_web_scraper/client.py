@@ -213,6 +213,7 @@ def team_box_scores(day, month, year, output_type=None, output_file_path=None, o
 
 def team_season_box_scores(team, year, output_type=None, output_file_path=None, output_write_option=None,
                            json_options=None):
+    # TODO: add validation for team name
     try:
         http_service = HTTPService(parser=ParserService())
         values = http_service.team_season_box_scores(team=team, year=year)
