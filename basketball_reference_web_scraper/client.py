@@ -212,12 +212,13 @@ def team_box_scores(day, month, year, output_type=None, output_file_path=None, o
 
 
 def team_season_box_scores(team, year, output_type=None, output_file_path=None, output_write_option=None,
-                            json_options=None):
+                           json_options=None):
     try:
         http_service = HTTPService(parser=ParserService())
         values = http_service.team_season_box_scores(team=team, year=year)
     except requests.exceptions.HTTPError as http_error:
         raise http_error
+    # TODO: update column names with new stats
     options = OutputOptions.of(
         file_options=FileOptions.of(path=output_file_path, mode=output_write_option),
         output_type=output_type,
