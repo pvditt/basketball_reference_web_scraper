@@ -1049,17 +1049,19 @@ class TeamSeasonGameLogs:
 
     @property
     def basic_game_logs(self):
+        game_logs = self.basic_game_log
         return [
             BasicBoxScoreRow(row)
-            for row in self.basic_game_log.xpath('//tr[contains(@id, "tgl_basic")]')
-        ]
+            for row in game_logs.xpath('//tr[contains(@id, "tgl_basic")]')
+        ] if game_logs is not None else []
 
     @property
     def advanced_game_logs(self):
+        game_logs = self.advanced_game_log
         return [
             AdvancedBoxScoreRow(row)
-            for row in self.advanced_game_log.xpath('//tr[contains(@id, "tgl_advanced")]')
-        ]
+            for row in game_logs.xpath('//tr[contains(@id, "tgl_advanced")]')
+        ] if game_logs is not None else []
 
 
 class DailyLeadersPage:

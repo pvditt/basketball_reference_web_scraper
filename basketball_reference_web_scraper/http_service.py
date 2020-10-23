@@ -224,9 +224,8 @@ class HTTPService:
             for game in TeamSeasonGameLogs(html.fromstring(advanced_response.content)).advanced_game_logs
         ]
 
+        # TODO: handle or not
         if len(basic_game_logs) != len(advanced_team_logs):
-            print(len(basic_game_logs))
-            print(len(advanced_team_logs))
             return []
 
         return [
