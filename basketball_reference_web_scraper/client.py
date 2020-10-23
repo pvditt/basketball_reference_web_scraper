@@ -211,6 +211,26 @@ def team_box_scores(day, month, year, output_type=None, output_file_path=None, o
     return output_service.output(data=values, options=options)
 
 
+def team_season_box_scores(team, year, output_type=None, output_file_path=None, output_write_option=None,
+                            json_options=None):
+    try:
+        http_service = HTTPService(parser=ParserService())
+        values = http_service.team_season_box_scores(team=team, year=year)
+    except requests.exceptions.HTTPError as http_error:
+        raise http_error
+    options = OutputOptions.of(
+        file_options=FileOptions.of(path=output_file_path, mode=output_write_option),
+        output_type=output_type,
+        json_options=json_options,
+        csv_options={"column_names": TEAM_BOX_SCORES_COLUMN_NAMES}
+    )
+    output_service = OutputService(
+        json_writer=JSONWriter(value_formatter=BasketballReferenceJSONEncoder),
+        csv_writer=CSVWriter(value_formatter=format_value)
+    )
+    return output_service.output(data=values, options=options)
+
+
 def play_by_play(home_team, day, month, year, output_type=None, output_file_path=None, output_write_option=None,
                  json_options=None):
     try:

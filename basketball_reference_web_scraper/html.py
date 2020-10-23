@@ -173,6 +173,186 @@ class BasicBoxScoreRow:
 
         return ''
 
+    @property
+    def date(self):
+        cells = self.html.xpath('td[@data-stat="date_game"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def outcome(self):
+        cells = self.html.xpath('td[@data-stat="game_result"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent(self):
+        cells = self.html.xpath('td[@data-stat="opp_id"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def total_rebounds(self):
+        cells = self.html.xpath('td[@data-stat="trb"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_points(self):
+        cells = self.html.xpath('td[@data-stat="opp_pts"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_field_goals(self):
+        cells = self.html.xpath('td[@data-stat="opp_fg"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_field_goal_attempts(self):
+        cells = self.html.xpath('td[@data-stat="opp_fga"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_field_goal_percentage(self):
+        cells = self.html.xpath('td[@data-stat="opp_fg_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_three_point_field_goals(self):
+        cells = self.html.xpath('td[@data-stat="opp_fg3"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_three_point_field_goal_attempts(self):
+        cells = self.html.xpath('td[@data-stat="opp_fg3a"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_free_throws(self):
+        cells = self.html.xpath('td[@data-stat="opp_ft"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_free_throw_attempts(self):
+        cells = self.html.xpath('td[@data-stat="opp_fta"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_free_throw_percentage(self):
+        cells = self.html.xpath('td[@data-stat="opp_ft_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_offensive_rebounds(self):
+        cells = self.html.xpath('td[@data-stat="opp_orb"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_total_rebounds(self):
+        cells = self.html.xpath('td[@data-stat="opp_trb"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_assists(self):
+        cells = self.html.xpath('td[@data-stat="opp_ast"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_steals(self):
+        cells = self.html.xpath('td[@data-stat="opp_stl"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_blocks(self):
+        cells = self.html.xpath('td[@data-stat="opp_blk"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_turnovers(self):
+        cells = self.html.xpath('td[@data-stat="opp_tov"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_personal_fouls(self):
+        cells = self.html.xpath('td[@data-stat="opp_pf"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
 
 class AdvancedBoxScoreRow:
     def __init__(self, html):
@@ -287,8 +467,8 @@ class AdvancedBoxScoreRow:
         return ''
 
     @property
-    def usage_percentage(self):
-        cells = self.html.xpath('td[@data-stat="usg_pct"]')
+    def offensive_rating(self):
+        cells = self.html.xpath('td[@data-stat="off_rtg"]')
 
         if len(cells) > 0:
             return cells[0].text_content()
@@ -304,6 +484,50 @@ class AdvancedBoxScoreRow:
 
         return ''
 
+    @property
+    def pace(self):
+        cells = self.html.xpath('td[@data-stat="pace"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def free_throw_rate(self):
+        cells = self.html.xpath('td[@data-stat="ft_rate"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_effective_field_goal_rate(self):
+        cells = self.html.xpath('td[@data-stat="opp_efg_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_turnover_rate(self):
+        cells = self.html.xpath('td[@data-stat="opp_tov_pct"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
+
+    @property
+    def opponent_free_throw_rate(self):
+        cells = self.html.xpath('td[@data-stat="opp_ft_rate"]')
+
+        if len(cells) > 0:
+            return cells[0].text_content()
+
+        return ''
 
 class PlayerBoxScoreRow(BasicBoxScoreRow):
     def __init__(self, html):
@@ -803,6 +1027,39 @@ class StatisticsTable:
             return AdvancedBoxScoreRow(html=footers[0])
 
         return None
+
+
+class TeamSeasonGameLogs:
+    def __init__(self, html):
+        self.html = html
+
+    @property
+    def basic_game_log(self):
+        table = self.html.xpath('//table[contains(@id, "tgl_basic")]')
+        if len(table) != 1:
+            return None
+        return table[0]
+
+    @property
+    def advanced_game_log(self):
+        table = self.html.xpath('//table[contains(@id, "tgl_advanced")]')
+        if len(table) != 1:
+            return None
+        return table[0]
+
+    @property
+    def basic_game_logs(self):
+        return [
+            BasicBoxScoreRow(row)
+            for row in self.basic_game_log.xpath('//tr[contains(@id, "tgl_basic")]')
+        ]
+
+    @property
+    def advanced_game_logs(self):
+        return [
+            AdvancedBoxScoreRow(row)
+            for row in self.advanced_game_log.xpath('//tr[contains(@id, "tgl_advanced")]')
+        ]
 
 
 class DailyLeadersPage:

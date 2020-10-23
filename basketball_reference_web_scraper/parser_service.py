@@ -110,11 +110,16 @@ class ParserService:
     def parse_scheduled_games(self, games):
         return self.scheduled_games_parser.parse_games(games)
 
-    def parse_team_totals(self, first_team_totals, first_team_advanced_totals, second_team_totals, second_team_advanced_totals):
+    def parse_team_totals(self, first_team_totals, first_team_advanced_totals, second_team_totals,
+                          second_team_advanced_totals):
         return self.team_totals_parser.parse(first_team_totals=first_team_totals,
                                              first_team_advanced_totals=first_team_advanced_totals,
                                              second_team_totals=second_team_totals,
                                              second_team_advanced_totals=second_team_advanced_totals)
+
+    def parse_team_game_logs(self, team, basic_team_totals, advanced_team_totals):
+        return self.team_totals_parser.parse_game_log(team, basic_team_totals=basic_team_totals,
+                                                      advanced_team_totals=advanced_team_totals)
 
     def parse_player_search_results(self, nba_aba_baa_players):
         return self.search_results_parser.parse(nba_aba_baa_players=nba_aba_baa_players)

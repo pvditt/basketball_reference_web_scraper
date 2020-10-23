@@ -5,7 +5,7 @@ from basketball_reference_web_scraper.data import TEAM_TO_TEAM_ABBREVIATION, Adv
 from basketball_reference_web_scraper.errors import InvalidDate, InvalidPlayerAndSeason
 from basketball_reference_web_scraper.html import DailyLeadersPage, PlayerSeasonBoxScoresPage, PlayerSeasonTotalTable, \
     PlayerAdvancedSeasonTotalsTable, PlayByPlayPage, SchedulePage, BoxScoresPage, DailyBoxScoresPage, SearchPage, \
-    PlayerPage, StandingsPage
+    PlayerPage, StandingsPage, TeamSeasonGameLogs
 
 
 class HTTPService:
@@ -199,6 +199,39 @@ class HTTPService:
             box_score
             for game_url_path in page.game_url_paths
             for box_score in self.team_box_score(game_url_path=game_url_path)
+        ]
+
+    def team_season_box_scores(self, team, year):
+        basic_url = "{BASE_URL}/teams/{TEAM}/{YEAR}/gamelog".format(BASE_URL=HTTPService.BASE_URL, TEAM=team, YEAR=year)
+
+        basic_response = requests.get(url=basic_url)
+
+        basic_response.raise_for_status()
+
+        basic_game_logs = [
+            TeamTotal(team_abbreviation=team, totals=game)
+            for game in TeamSeasonGameLogs(html.fromstring(basic_response.content)).basic_game_logs
+        ]
+
+        advanced_url = "{BASE_URL}/teams/{TEAM}/{YEAR}/gamelog-advanced".format(BASE_URL=HTTPService.BASE_URL, TEAM=team, YEAR=year)
+
+        advanced_response = requests.get(url=advanced_url)
+
+        advanced_response.raise_for_status()
+
+        advanced_team_logs = [
+            AdvancedTeamTotal(team_abbreviation=team, totals=game)
+            for game in TeamSeasonGameLogs(html.fromstring(advanced_response.content)).advanced_game_logs
+        ]
+
+        if len(basic_game_logs) != len(advanced_team_logs):
+            print(len(basic_game_logs))
+            print(len(advanced_team_logs))
+            return []
+
+        return [
+            self.parser.parse_team_game_logs(team, basic_game_logs[i], advanced_team_logs[i])
+            for i in range(len(basic_game_logs))
         ]
 
     def search(self, term):

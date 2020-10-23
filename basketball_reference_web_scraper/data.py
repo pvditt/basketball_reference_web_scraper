@@ -302,6 +302,86 @@ class TeamTotal:
     def points(self):
         return self.totals.points
 
+    @property
+    def date(self):
+        return self.totals.date
+
+    @property
+    def outcome(self):
+        return self.totals.outcome
+
+    @property
+    def opponent(self):
+        return self.totals.opponent
+
+    @property
+    def total_rebounds(self):
+        return self.totals.total_rebounds
+
+    @property
+    def opponent_points(self):
+        return self.totals.opponent_points
+
+    @property
+    def opponent_field_goals(self):
+        return self.totals.opponent_field_goals
+
+    @property
+    def opponent_field_goal_attempts(self):
+        return self.totals.opponent_field_goal_attempts
+
+    @property
+    def opponent_field_goal_percentage(self):
+        return self.totals.opponent_field_goal_percentage
+
+    @property
+    def opponent_three_point_field_goals(self):
+        return self.totals.opponent_three_point_field_goals
+
+    @property
+    def opponent_three_point_field_goal_attempts(self):
+        return self.totals.opponent_three_point_field_goal_attempts
+
+    @property
+    def opponent_free_throws(self):
+        return self.totals.opponent_free_throws
+
+    @property
+    def opponent_free_throw_attempts(self):
+        return self.totals.opponent_free_throw_attempts
+
+    @property
+    def opponent_free_throw_percentage(self):
+        return self.totals.opponent_free_throw_percentage
+
+    @property
+    def opponent_offensive_rebounds(self):
+        return self.totals.opponent_offensive_rebounds
+
+    @property
+    def opponent_total_rebounds(self):
+        return self.totals.opponent_total_rebounds
+
+    @property
+    def opponent_assists(self):
+        return self.totals.opponent_assists
+
+    @property
+    def opponent_steals(self):
+        return self.totals.opponent_steals
+
+    @property
+    def opponent_blocks(self):
+        return self.totals.opponent_blocks
+
+    @property
+    def opponent_turnovers(self):
+        return self.totals.opponent_turnovers
+
+    @property
+    def opponent_personal_fouls(self):
+        return self.totals.opponent_personal_fouls
+
 
 class AdvancedTeamTotal:
     def __init__(self, team_abbreviation, totals):
@@ -357,12 +437,32 @@ class AdvancedTeamTotal:
         return self.totals.turnover_percentage
 
     @property
-    def usage_percentage(self):
-        return self.totals.usage_percentage
+    def offensive_rating(self):
+        return self.totals.offensive_rating
 
     @property
     def defensive_rating(self):
         return self.totals.defensive_rating
+
+    @property
+    def pace(self):
+        return self.totals.pace
+
+    @property
+    def free_throw_rate(self):
+        return self.totals.free_throw_rate
+
+    @property
+    def opponent_effective_field_goal_rate(self):
+        return self.totals.opponent_effective_field_goal_rate
+
+    @property
+    def opponent_turnover_rate(self):
+        return self.totals.opponent_turnover_rate
+
+    @property
+    def opponent_free_throw_rate(self):
+        return self.totals.opponent_free_throw_rate
 
 
 class PlayerData:
